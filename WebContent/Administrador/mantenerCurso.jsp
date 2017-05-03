@@ -1,7 +1,10 @@
 
+<%@page import="bean.CursoBean"%>
+<%@page import="java.util.Vector"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
+  
+<% Vector<CursoBean> bean=(Vector<CursoBean>) request.getAttribute("lista");%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,74 +67,49 @@
 					</fieldset>
 				</div>
 				<div class="col-md-12" style="padding:15px;margin:15px;" align="center"> 
-					<button  onclick='location.href="<%=request.getContextPath()%>/Administrador/crearCurso.jsp";'  type="button" class="btn btn-primary" style="width:200px;height:50px; ">N</button><br/>Nuevo Curso
+					<button  onclick='location.href="<%=request.getContextPath()%>/mantenerCurso?accion=agregarcurso";'  type="button" class="btn btn-primary" style="width:200px;height:50px; ">N</button><br/>Nuevo Curso
 				</div>
-				<div class="cold-md-12" style="padding:15px;margin:15px">
-					 <table id="tabla" class="table table-striped">
+				<%if(request.getAttribute("mensaje")!=null){ %>
+				<div class="col-md-12 success" style="padding:15px;margin:15px;" align="center"> 
+					
+  						<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+ 					<%=request.getAttribute("mensaje") %>
+						
+				</div>
+				<%} %>
+				<div class="col-md-12" style="padding:15px;margin:15px">
+					 <table id="tabla" class="table table-striped" align="center">
 					    <thead>
 					      <tr>
 					        <th>Codigo</th>
 					        <th>Crédito</th>
 					        <th>Nombre del Curso</th>
-					        <th>Fecha Generada</th>
-					        <th>Responsable</th>
+					        <th>HT</th>
+					        <th>HL</th>
+					        <th>HP</th>
+					        <th>Propietario</th>
 					        <th>Estado</th>
-					        <th>Copiar</th>
 					        <th>Editar</th>
 					      </tr>
 					    </thead>
 					    <tbody>
+					    <%for(int i=0;i<bean.size();i++){ %>
 					      <tr>
-					        <td>00020171</td>
-					        <td>5</td>
-					        <td>USMP-FIA-MATE-DISCRETA</td>
-					        <td>07/03/2017</td>
-					        <td>Director de Escuela</td>
-					        <td><input type="button" onclick="estado()" id="estado" type="button" class="btn btn-danger" value="Bloqueado"></td>
-					        <td><button type="button" class="btn btn-primary" >Copiar</button></td>
-					        <td><button type="button" class="btn btn-danger">X</button></td>
+					        <td><%=bean.get(i).getIdcurso() %></td>
+					        <td><%=bean.get(i).getNumeroCreditos() %></td>
+					        <td><%=bean.get(i).getNombre() %></td>
+					        <td><%=bean.get(i).getHorasTeoria() %></td>
+					        <td><%=bean.get(i).getHorasLaboratorio() %></td>
+					        <td><%=bean.get(i).getHorasPracticas() %></td>
+					        <td><%=bean.get(i).getNombrePropietario()%></td>
+					        <% if(bean.get(i).getEstado()==1){%>
+					        <td><input type="button" onclick='location.href="<%=request.getContextPath()%>/mantenerCurso?accion=actualizarEstado&estado=<%=bean.get(i).getEstado() %>&idcurso=<%=bean.get(i).getIdcurso() %>";' id="estado" type="button" class="btn btn-success" value="Activo"></td>
+							<%}else if(bean.get(i).getEstado()==0){ %>
+							<td><input type="button" onclick='location.href="<%=request.getContextPath()%>/mantenerCurso?accion=actualizarEstado&estado=<%=bean.get(i).getEstado() %>&idcurso=<%=bean.get(i).getIdcurso() %>";' id="estado" type="button" class="btn btn-danger" value="Bloqueado"></td>
+							<%} %>
+					        <td><button type="button" class="btn btn-danger" onclick='location.href="<%=request.getContextPath()%>/mantenerCurso?accion=preactualizar&idcurso=<%=bean.get(i).getIdcurso() %>";' >X</button></td>
 					      </tr>
-					      <tr>
-					        <td>00020172</td>
-					        <td>5</td>
-					        <td>USMP-FIA-ECONOMIA</td>
-					        <td>07/03/2017</td>
-					        <td>Director de Escuela</td>
-					       <td><button type="button" class="btn btn-success" style="width: 94px;">Activo</button></td>
-					        <td><button type="button" class="btn btn-primary" >Copiar</button></td>
-					        <td><button type="button" class="btn btn-danger">X</button></td>
-					      </tr>
-					      <tr>
-					        <td>00020173</td>
-					        <td>5</td>
-					        <td>USMP-FIA-GEO-ANALITICA</td>
-					        <td>07/03/2017</td>
-					        <td>Director de Escuela</td>
-					      	<td><button type="button" class="btn btn-success" style="width: 94px;">Activo</button></td>
-					        <td><button type="button" class="btn btn-primary" >Copiar</button></td>
-					        <td><button type="button" class="btn btn-danger">X</button></td>
-					      </tr>
-					      <tr>
-					        <td>00020173</td>
-					        <td>5</td>
-					        <td>USMP-FIA-GEO-ANALITICA</td>
-					        <td>07/03/2017</td>
-					        <td>Director de Escuela</td>
-					        <td><button type="button" class="btn btn-success" style="width: 94px;">Activo</button></td>
-					        <td><button type="button" class="btn btn-primary" >Copiar</button></td>
-					        <td><button type="button" class="btn btn-danger">X</button></td>
-					      </tr>
-					      <tr>
-					        <td>00020173</td>
-					        <td>5</td>
-					        <td>USMP-FIA-GEO-ANALITICA</td>
-					        <td>07/03/2017</td>
-					        <td>Director de Escuela</td>
-					        <td><button type="button" class="btn btn-danger">Bloqueado</button></td>
-					        <td><button type="button" class="btn btn-primary" >Copiar</button></td>
-					        <td><button type="button" class="btn btn-danger">X</button></td>
-					      </tr>
-					      
+					     <%} %>			      
 					      
 					    </tbody>
 					  </table>
@@ -146,6 +124,7 @@
         <script src="<%=request.getContextPath()%>/Bootstrap/js/bootstrap.min.js"></script>
         <script src="<%=request.getContextPath()%>/Bootstrap/js/ie10-viewport-bug-workaround.js"></script>
         <script src="<%=request.getContextPath()%>/js/ModalAdministradores.js"></script>
+        
     </div>
 </body>
 </html>

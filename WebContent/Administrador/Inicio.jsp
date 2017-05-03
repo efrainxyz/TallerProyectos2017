@@ -30,7 +30,7 @@
         <jsp:include page="cabecera.jsp" flush="true"/>
         <div class="container-fluid">
     		<div class="row center-block">
-    			<div  onclick='location.href="<%=request.getContextPath()%>/Administrador/mantenerCurso.jsp";' class=" col-md-6 col-sm-6 col-xs-12" style="padding:30px;margin:30px auto;height:200px;text-align:center;vertical-align:middle; ">
+    			<div  onclick='location.href="<%=request.getContextPath()%>/mantenerCurso?accion=listar";' class=" col-md-6 col-sm-6 col-xs-12" style="padding:30px;margin:30px auto;height:200px;text-align:center;vertical-align:middle; ">
     				<div  class="click" style="border:2px solid black;width:auto;height: 200px;font-size:20px;">Mantener Curso</div>
     			</div>
     			<div  onclick='location.href="<%=request.getContextPath()%>/Administrador/reportePlanCurricular.jsp";' class=" col-md-6 col-sm-6 col-xs-12" style="padding:30px;margin:30px auto;height:200px;text-align:center;vertical-align:middle; ">

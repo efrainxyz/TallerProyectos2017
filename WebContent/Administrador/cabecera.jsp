@@ -12,8 +12,7 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
             	<li><a href="<%=request.getContextPath()%>/Administrador/Inicio.jsp">Inicio</a></li>
-            	<li><a href="<%=request.getContextPath()%>/Administrador/mantenerCurso.jsp">Curso</a></li>
-            	<li><a href="<%=request.getContextPath()%>/Administrador/copiarCurso.jsp">Copiar</a></li>
+            	<li><a href="<%=request.getContextPath()%>/mantenerCurso?accion=listar">Curso</a></li>
             	<li><a href="<%=request.getContextPath()%>/login.jsp">Cerrar Sesión</a></li>
             </ul>
         </div>

@@ -3,7 +3,7 @@
 <%@page import="bean.CursoBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
+<% CursoBean bean=(CursoBean)request.getAttribute("detalleCurso");%>
 <% Vector<CursoBean> lista=(Vector<CursoBean>) request.getAttribute("lista");%>
 <!DOCTYPE html>
 <html>
@@ -63,24 +63,28 @@ up
 		<div class="container-fluid">
 			<div class="row" align="center" style="padding: 15px;">
 				<div class="col-md-12 col-xd-12">
-					<h1>Crear Curso</h1>
+					<h1>Modificar Curso</h1>
 				</div>
 			</div>
-		<form action="<%=request.getContextPath()%>/mantenerCurso" onsubmit="return validar()" align="center" method="post">	
+		<form action="<%=request.getContextPath()%>/mantenerCurso" align="center" method="post">	
 					
 					<div class="row" align="center" style="padding: 15px;">
-						<input name="accion" value="agregarCurso" type="hidden">	
+						<input name="accion" value="modificarCurso" type="hidden">	
 						<div class="col-md-12 col-xs-6">
-							Código SAP<input onkeypress="return solonumeros(event)"  required="required" maxlength="11" class="form form-control" onkeyup="buscarCursos()" id="idcursos" name="idcurso" type="text"
-								style="max-width: 400px;">
+							Código SAP<input class="form form-control"  name="idcurso" type="text"
+								value="<%=bean.getIdcurso()%> " style="max-width: 400px;" readonly="readonly">
 						</div>
 						<div class="col-md-12 col-xs-6">
-							Nombre del Curso: <input required="required" class="form form-control" type="text"
-								 name="nombrecurso" onkeypress="return sololetras(event)" style="max-width: 400px;">
+							Nombre del Curso: <input class="form form-control" type="text"
+								value="<%=bean.getNombre()%> " name="nombrecurso" onkeypress="return sololetras(event)" style="max-width: 400px;">
 						</div>
 						<div class="col-md-12 col-xs-6">
+						<input type="hidden" value="<%=bean.getNombrePropietario() %>" id="propietario1">
+						<input type="hidden"  value="<%=bean.getHorasTeoria() %>" id="horasteoria1">
+						<input type="hidden"  value="<%=bean.getHorasPracticas() %>" id="horaspracticas1">
+						<input type="hidden" value="<%=bean.getHorasLaboratorio() %>" id="horaslab1">
 							Propietario :
-								<select required  class="form form-control" id="nompro"  name="nomProp" style="max-width: 400px;">
+								<select  class="form form-control" id="nompro"  name="nomProp" style="max-width: 400px;">
 										<option value="0">Seleccione</option>
 										<option value="Escuela Sistemas">Escuela Sistemas</option>
 										<option value="Escuela Arquitectura">Escuela Arquitectura</option>
@@ -96,7 +100,7 @@ up
 							<div class="row">
 								<div class="col-md-12 col-xs-12" style="padding-top:8px;">
 									<label for="Descripcion">Horas Teoria</label>
-									<select required  onchange="calcularCreditos()" class="form form-control" id="horasteoria" name="horasteoria" style="max-width: 400px;">
+									<select  class="form form-control" onchange="calcularCreditos()" id="horasteoria" name="horasteoria" style="max-width: 400px;">
 										<option value="0">Seleccione</option>
 										<option value="1">1</option>
 										<option value="2">2</option>
@@ -114,8 +118,8 @@ up
 								</div>
 								<div class="col-md-12 col-xs-12" style="padding-top:8px;">
 									<label for="Descripcion">Horas Prácticas</label>
-									<select  required onchange="calcularCreditos()" class="form form-control" id="horaspractica" name="horaspractica" style="max-width: 400px;">
-										<option value="">Seleccione</option>
+									<select class="form form-control" onchange="calcularCreditos()" id="horaspractica" name="horaspractica" style="max-width: 400px;">
+										<option value="0">Seleccione</option>
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>
@@ -132,7 +136,7 @@ up
 								</div>
 								<div class="col-xs-12 col-xs-12" style="padding-top:8px;">
 									<label for="Descripcion">Horas Laboratorio</label>
-									<select   class="form form-control" onchange="calcularCreditos()" id="horaslaboratorio" name="horaslaboratorio"  style="max-width: 400px;">
+									<select class="form form-control" onchange="calcularCreditos()" id="horaslaboratorio" name="horaslaboratorio"  style="max-width: 400px;">
 										<option value="0">Seleccione</option>
 										<option value="1">1</option>
 										<option value="2">2</option>
@@ -156,7 +160,7 @@ up
 							<div class="row">
 								<div class="col-md-12">
 									Créditos del Curso <input class="form form-control"  type="text"
-								placeholder="Credito curso" style="max-width: 400px;" id="creditos" name="credicurso" disabled="disabled">
+								placeholder="Credito curso" style="max-width: 400px;" value="<%=bean.getNumeroCreditos() %>" id="creditos" name="credicurso" disabled="disabled">
 								</div>
 							</div>
 							
@@ -194,22 +198,22 @@ up
       			<div class="row">
       				<h4>Codigo de cursos requisitos</h4>
       				<div class="col-lg-12">
-      					<h4>Requisitos por credito</h4><br/>
+      					<h4>Requisitos por credito</h4>
       					<div class="row">
-      						<div class="col-md-8 col-xs-12"><input required="required" id="req1" name="req1" type="text" id="req1" class="form form-control" placeholder="Codigo curso 1" readonly="readonly"></div>
-      						<div class="col-md-3 col-xs-8"><input class="btn btn-info" width="100" type="button" data-toggle="modal" data-target="#myModal2" value="Requisito"
+      						<div class="col-md-4 col-xs-12"><input id="req1" name="req1" type="text" id="req1" class="form form-control" placeholder="Codigo curso 1" disabled="disabled"></div>
+      						<div class="col-md-4 col-xs-6"><input class="btn btn-info" width="100" type="button" data-toggle="modal" data-target="#myModal2" value="Requisito"
 								style="max-width: 200px;"></div>
-      						<div class="col-md-1 col-xs-4" align="left"><input type="button" class="btn btn-danger" value="x" onclick="limpiar1()"></div>
-      					</div><br/>
+      						<div class="col-md-4 col-xs-6"><input type="button" class="btn btn-danger" value="x" onclick="limpiar1()"></div>
+      					</div>
       					<div class="row">
-      						<div class="col-md-8 col-xs-12"><input width="100" id="req2" name="req2" type="text" id="req2" class="form form-control" placeholder="Codigo curso 2" readonly="readonly"></div>
-      						<div class="col-md-3 col-xs-8"><input class="btn btn-info" width="100" type="button" data-toggle="modal" data-target="#myModal3" value="Requisito"></div>
-      						<div class="col-md-1 col-xs-4"><input type="button" class="btn btn-danger" value="x" onclick="limpiar2()"></div>
-      					</div><br/>
+      						<div class="col-md-4 col-xs-12"><input width="100" id="req2" name="req2" type="text" id="req2" class="form form-control" placeholder="Codigo curso 2" disabled="disabled"></div>
+      						<div class="col-md-4 col-xs-6"><input class="btn btn-info" width="100" type="button" data-toggle="modal" data-target="#myModal3" value="Requisito"></div>
+      						<div class="col-md-4 col-xs-6"><input type="button" class="btn btn-danger" value="x" onclick="limpiar2()"></div>
+      					</div>
       					<div class="row">
-      						<div class="col-md-8 col-xs-12"><input width="100" id="req3" name="req3" type="text" id="req3"class="form form-control" placeholder="Codigo curso 3" readonly="readonly"></div>
-      						<div class="col-md-3 col-xs-8"><input class="btn btn-info" width="100" type="button" data-toggle="modal" data-target="#myModal4" value="Requisito"></div>
-      						<div class="col-md-1 col-xs-4"><input type="button" class="btn btn-danger" value="x" onclick="limpiar3()"></div>
+      						<div class="col-md-4 col-xs-12"><input width="100" id="req3" name="req3" type="text" id="req3"class="form form-control" placeholder="Codigo curso 3" disabled="disabled"></div>
+      						<div class="col-md-4 col-xs-6"><input class="btn btn-info" width="100" type="button" data-toggle="modal" data-target="#myModal4" value="Requisito"></div>
+      						<div class="col-md-4 col-xs-6"><input type="button" class="btn btn-danger" value="x" onclick="limpiar1()"></div>
       					</div>
       					
       					
@@ -364,7 +368,9 @@ up
 			
 		</div>
 		
-<script>
+<script type="text/javascript">
+
+
     
 function limpiar1(){
 	document.getElementById("req1").setAttribute("value","");
@@ -387,20 +393,9 @@ function seleccionar3(id){
     function calcularCreditos(){
     	
     	
-    	var hp=0;
-    	var ht=0;
-    	var hl=0;
-    	
-    	if(parseInt($("#horaspractica").val())>0){
-    		hp=parseInt($("#horaspractica").val());
-    	}
-    	if(parseInt($("#horasteoria").val())>0){
-    		ht=parseInt($("#horasteoria").val())
-    	}
-    	
-    	if(parseInt($("#horaslaboratorio").val())>0){
-    		hl=parseInt($("#horaslaboratorio").val());
-    	}
+    	var hp=parseInt($("#horaspractica").val());
+    	var ht=parseInt($("#horasteoria").val());
+    	var hl=parseInt($("#horaslaboratorio").val());
     	
     	var creditos=ht+(hp/2)+(hl/2);
     	document.getElementById("creditos").setAttribute('value',creditos);
@@ -409,48 +404,21 @@ function seleccionar3(id){
     }
     
     
-    function buscarCursos(){
+    function buscarCursos(id){
     	
     	var accion = "buscarcurso";
-    	var idecurso =document.getElementById("idcursos").value;
+    	var idecurso = id.value ;
     	
-    	if(idecurso.length>10 && idecurso.length<12){
-    	
-	    	if(idecurso.length==11){
-		    	$.post("mantenerCurso",{
-		
-		    		accion:accion,
-		    		idecurso:idecurso
-		    		
-		    	},function(response){
-		    		if(response['object']!=null){
-		    			$("#idcursos").removeClass("form-control-success");
-		    			$("#idcursos").addClass("form-control-success");
-			    		alert("codigo no disponible");
-		    		}else{
-		    			$("#idcursos").addClass("form-control-success");
-		    			$("#idcursos").removeClass("form-control-danger");
-		    			alert("codigo dispoible");
-		    		}
-		    			
-		    	});
-	    	}
-	    	
-	    	return true;
-    	}else{
+    	$.post("../mantenerCurso",{
+
+    		accion:accion,
+    		idecurso:idecurso
     		
-    		return false;
-    		}
-    }
-    function validar(){
-    	var idecurso =document.getElementById("idcursos").value;
-    	if(idecurso.length<11 || idecurso.length>11){
-    		alert("El codigo SAP debe ser de 11 dígitios, intente de nuevo.")
-    		return false;
-    	}else{
-    		alert("Todo bien")
-    		return true;
-    	}
+    	},function(response){
+    		var nombre=response['object']['nombre'];
+    		alert(nombre);
+    			
+    	});
     }
     
     
@@ -565,6 +533,57 @@ function seleccionar3(id){
 		<script src="<%=request.getContextPath()%>/Bootstrap/js/ie10-viewport-bug-workaround.js"></script>
 		<script src="<%=request.getContextPath()%>/js/validCampo.js"></script>		
 	</div>
+	<script type="text/javascript">
+	$(document).ready(function() {
+	    var prop= $("#propietario1").val();
+	    var ht =$("#horasteoria1").val();
+	    var hp=$("#horaspracticas1").val();
+	    var hl=$("#horaslab1").val();
+
+	    
+	    var cbcprop = document.getElementById("nompro"); 
+
+	    for (var i = 0; i < cbcprop.length; i++) {
+	        var opt = cbcprop[i];
+	        if(opt.value==prop){
+	        	cbcprop[i].setAttribute('selected','selected');
+	        }
+	    }
+	    
+	    var cbcht = document.getElementById("horasteoria"); 
+
+	    for (var i = 0; i < cbcht.length; i++) {
+	        var opt = cbcht[i];
+	        if(opt.value==ht){
+	        	cbcht[i].setAttribute('selected','selected');
+	        }
+	    }
+	    
+	    var cbchp = document.getElementById("horaspractica"); 
+
+	    for (var i = 0; i < cbchp.length; i++) {
+	        var opt = cbchp[i];
+	        if(opt.value==hp){
+	        	cbchp[i].setAttribute('selected','selected');
+	        }
+	    }
+	    
+	    var cbchl = document.getElementById("horaslaboratorio"); 
+
+	    for (var i = 0; i < cbchl.length; i++) {
+	        var opt = cbchl[i];
+	        if(opt.value==hl){
+	        	if(opt.value==0){
+	        		cbchl.setAttribute('disabled','disabled');
+	        	}else{
+	        	cbchl[i].setAttribute('selected','selected');
+	        	}
+	        }
+	    }
+	    
+	
+	});
+	</script>
 </body>
 
 </html>

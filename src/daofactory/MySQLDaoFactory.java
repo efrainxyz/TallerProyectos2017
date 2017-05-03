@@ -1,8 +1,11 @@
-package service;
+package daofactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class MySQLDaoFactory {
+import dao.interfaces.*;
+import dao.mysql.*;
+
+public class MySQLDaoFactory extends DAOFactory{
 		
 	public static Connection obtenerConexion(){
 		
@@ -11,7 +14,7 @@ public class MySQLDaoFactory {
 		try {
 			
 			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3306/alumno";
+			String url = "jdbc:mysql://localhost:3306/tallerproyectos2";
 			String user = "root";
 			String password ="";
 			con = DriverManager.getConnection(url,user,password);
@@ -27,8 +30,10 @@ public class MySQLDaoFactory {
 	
 	}
 	
-
-	 
-
-
+	@Override
+	public I_Curso getCurso() {
+		// TODO Auto-generated method stub
+		return new MySql_Curso();
+	}
+	
 }
