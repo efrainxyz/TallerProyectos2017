@@ -36,4 +36,31 @@ public class MySQLDaoFactory extends DAOFactory{
 		return new MySql_Curso();
 	}
 	
+	
+	@Override
+	public CursoDao getCursoDao() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Detalle_Curso_Escuela_Dao getDetalle_Curso_Escuela_Dao() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DocenteDao getDocenteDao() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
+	//agregar get de los mysql_nombredao
+	/*
+	public NombreDao getNombreDao(){
+		return new MySql_NombreDao();
+	}*/
+	
 }

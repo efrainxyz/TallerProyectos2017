@@ -20,5 +20,11 @@ public abstract class DAOFactory {
 	}
 	
 	public abstract I_Curso getCurso();
+	//abstract methods
+		//public abstract UsuarioDao getUsuarioDao();
+		public abstract DocenteDao getDocenteDao();
+		public abstract CursoDao getCursoDao(); 
+		public abstract Detalle_Curso_Escuela_Dao getDetalle_Curso_Escuela_Dao();
+		//public abstract DisponibilidadDao getDisponibilidadDao();
 	
 }
