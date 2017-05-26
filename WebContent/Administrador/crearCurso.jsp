@@ -353,7 +353,7 @@ up
       	</div>
       </div>
      
-
+<input type="hidden" id="existecurso">
     </div>
   </div>
 </div>
@@ -426,10 +426,12 @@ function seleccionar3(id){
 		    		if(response['object']!=null){
 		    			$("#idcursos").removeClass("form-control-success");
 		    			$("#idcursos").addClass("form-control-success");
+		    			$("#existecurso").val("0");
 			    		alert("codigo no disponible");
 		    		}else{
 		    			$("#idcursos").addClass("form-control-success");
 		    			$("#idcursos").removeClass("form-control-danger");
+		    			$("#existecurso").val("1");
 		    			alert("codigo dispoible");
 		    		}
 		    			
@@ -444,12 +446,21 @@ function seleccionar3(id){
     }
     function validar(){
     	var idecurso =document.getElementById("idcursos").value;
+    	
+    	
     	if(idecurso.length<11 || idecurso.length>11){
     		alert("El codigo SAP debe ser de 11 dígitios, intente de nuevo.")
     		return false;
     	}else{
-    		alert("Todo bien")
+    		if($("#existecurso").val()==0){
+    			alert("ERROR..Para continuar , debe elegir otro código SAP.");
+    			return false;
+    		}else if($("#existecurso").val()==1){
+    			
+    		alert("Todo bien");
     		return true;
+    		
+    		}
     	}
     }
     

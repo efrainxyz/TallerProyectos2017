@@ -1,0 +1,70 @@
+.dimencion{
+ width: 100%;
+ height: 150px;
+}
+.dimencion h1{
+	margin-top: 5%; 
+	text-align: center;
+}
+.borde_1{
+	border: 2px #2E64FE groove;
+	margin-top: 10px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+.borde_2{
+	border: 3px #2E64FE dashed;
+	width: 100%;
+	min-height: 300px ;
+	height:auto;
+	margin: 5px auto;
+	padding :5px auto;
+}
+.infor{
+	width: 100%;
+	height: 18px;
+}
+.footer{
+	width: 100%;
+	height: 40px;
+}
+.verde{
+	margin-left: 10px;
+	color: #04B404;
+	font-size: 20px;
+}
+.rojo{
+	margin-left: 10px;
+	color: #DF0101;	
+	font-size: 20px;
+}
+.amarillo{
+	color: #ffcc00;
+}
+.separar{
+	margin-top: 150px;
+	margin-bottom: 10px;
+}
+.curso{
+	border: 3px #ff0080 dashed;
+	width:100px;
+	height: 150x;
+
+}
+.buscar{
+	margin-top: 10px;
+}
+.wrapper{
+    border: 1px solid #D8D8D8;
+    height: 20px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin-top: 7px;
+    width: 60px;
+ }
+ .wrapper .selection{
+ 	
+ 	margin-left: -7px;
+   width:150px;
+   border:1px solid #ccc;
+ }

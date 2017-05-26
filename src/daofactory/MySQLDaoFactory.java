@@ -14,7 +14,7 @@ public class MySQLDaoFactory extends DAOFactory{
 		try {
 			
 			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3306/tallerproyectos2";
+			String url = "jdbc:mysql://localhost:3306/taller_proyectos";
 			String user = "root";
 			String password ="";
 			con = DriverManager.getConnection(url,user,password);
@@ -36,31 +36,25 @@ public class MySQLDaoFactory extends DAOFactory{
 		return new MySql_Curso();
 	}
 	
-	
 	@Override
-	public CursoDao getCursoDao() {
+	public I_Semestre getSemestre() {
 		// TODO Auto-generated method stub
-		return null;
+		return new MySql_Semestre();
 	}
 
 	@Override
-	public Detalle_Curso_Escuela_Dao getDetalle_Curso_Escuela_Dao() {
+	public I_Plancurricular getPlancurricular() {
 		// TODO Auto-generated method stub
-		return null;
+		return new MySql_Plancurricular();
 	}
-
+	
 	@Override
-	public DocenteDao getDocenteDao() {
+	public I_Usuario getUsuario() {
 		// TODO Auto-generated method stub
-		return null;
+		return new MySql_Usuario();
 	}
 	
+
 	
-	
-	//agregar get de los mysql_nombredao
-	/*
-	public NombreDao getNombreDao(){
-		return new MySql_NombreDao();
-	}*/
 	
 }

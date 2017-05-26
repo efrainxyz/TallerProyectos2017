@@ -257,7 +257,26 @@ public class ServletMantenerCurso extends HttpServlet {
 			
 			
 			
-		}else if(accion.equalsIgnoreCase("modificarCurso")){
+		}else if(accion.equalsIgnoreCase("cursosplan")){
+			try {
+				DAOFactory dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
+				I_Curso curso = dao.getCurso();
+				Vector<CursoBean> lista = curso.listarCursos();
+				ResponseObject responseobj=null;
+				if(lista!=null){
+					responseobj=new ResponseObject();
+					response.setContentType("application/json");
+					response.setCharacterEncoding("UTF-8");
+					responseobj.setSuccess(true);
+					responseobj.setObject(lista);
+					
+				}
+				response.getWriter().write(new Gson().toJson(responseobj));
+				System.out.println("json BUSCAR CURSO " + new Gson().toJson(responseobj));
+			} catch (Exception e) {
+				System.out.println("ERROR listar cursos plan");
+			}
+				}else if(accion.equalsIgnoreCase("modificarCurso")){
 			
 
 			try {

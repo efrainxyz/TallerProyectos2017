@@ -13,7 +13,7 @@
             <ul class="nav navbar-nav navbar-right">
             	<li><a href="<%=request.getContextPath()%>/Director/Inicio.jsp">Inicio</a></li>
             	<li><a href="<%=request.getContextPath()%>/Director/reportePlanCurricular.jsp">Reporte Plan </a></li>
-            	<li><a href="<%=request.getContextPath()%>/login.jsp">Cerrar Sesión</a></li>
+            	<li><a href="<%=request.getContextPath()%>/Logout">Cerrar Sesión</a></li>
             </ul>
         </div>
     </div>

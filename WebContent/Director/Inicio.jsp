@@ -1,7 +1,12 @@
-
+<%@page import="bean.DetusuescBean"%>
+<%@page import="java.util.Vector"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
+<%Vector<DetusuescBean> user=(Vector<DetusuescBean>) session.getAttribute("usuario");%>
+<%if(user==null){
+	request.setAttribute("mensaje", "No inicio sesión");
+	request.getRequestDispatcher("/login.jsp").forward(request, response);
+}else{%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,8 +36,8 @@
         <jsp:include page="cabecera.jsp" flush="true"/>
         <div class="container-fluid">
     		<div class="row center-block">
-    			<div  onclick='location.href="<%=request.getContextPath()%>/images/crear_plan.png";' class=" col-md-6 col-sm-6 col-xs-12" style="padding:30px;margin:30px auto;height:200px;text-align:center;vertical-align:middle; ">
-    				<div  class="click" style="border:2px solid black;width:auto;height: 200px;font-size:20px;">Crear Plan Curricular</div>
+    			<div  onclick='location.href="<%=request.getContextPath()%>/gestionarPlan?accion=listarPlan";' class=" col-md-6 col-sm-6 col-xs-12" style="padding:30px;margin:30px auto;height:200px;text-align:center;vertical-align:middle; ">
+    				<div  class="click" style="border:2px solid black;width:auto;height: 200px;font-size:20px;">Mantener Plan Curricular</div>
     			</div>
     			<div  onclick='location.href="<%=request.getContextPath()%>/Director/reportePlanCurricular.jsp";' class=" col-md-6 col-sm-6 col-xs-12" style="padding:30px;margin:30px auto;height:200px;text-align:center;vertical-align:middle; ">
     				<div  class="click" style="border:2px solid black;width:auto;height: 200px;font-size:20px;">Generar Reporte Plan Curricular</div>
@@ -49,3 +54,4 @@
     </div>
 </body>
 </html>
+<%} %>

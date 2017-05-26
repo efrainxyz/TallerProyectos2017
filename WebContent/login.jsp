@@ -6,7 +6,7 @@
 <%String mensaje=(String)request.getAttribute("mensaje");%>
 <meta charset="utf-8">
 <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
-<title>Sistema de Vestimenta BCP</title>
+<title>Sistema USMP </title>
 	
 	<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	

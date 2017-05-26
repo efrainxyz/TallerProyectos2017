@@ -35,92 +35,40 @@
         	</div>
         </div>
         <div class="container-fluid">
+        <form name="crearsemestre" action="<%=request.getContextPath()%>/gestionarPlan"  method="post">
+    	<input name="accion" type="hidden" value="crearsemestre">
     		<div class="row" align="center" style="padding:15px;">
     			<div class="col-md-12 col-xs-12" style="padding:10px;">
-    			<h1>Copiar Curso</h1>
+    			<h1>Crear Periodo Académico</h1>
+    			</div>
+    		
+    		
+    				
+    			<div class="col-md-12 col-xs-12" > 
+    					<label>Código semestre : </label> <input readonly="readonly" name="codigosemestre" id="codigosemestre" class="form form-control" type="text"  style="max-width: 400px;">
     			</div>
     			<div class="col-md-12 col-xs-12" > 
-    					<input class="form form-control" type="text"  style="max-width: 400px;">
+    					<label>Año : </label> <input readonly="readonly" id="ano" name="ano" class="form form-control" type="text"  style="max-width: 400px;">
+    			</div>
+    			<div class="col-md-12 col-xs-12" > 
+    					<label>Periodo : </label> <input readonly="readonly" name="periodo" id="periodo" class="form form-control" type="text"  style="max-width: 400px;">
+    			</div>
+    			<div class="col-md-12 col-xs-12" > 
+					<label for="Descripcion">Cantidad de Semanas</label>
+					<input readonly="readonly" name="cantidadsemanas" id="cantidadsemanas" class="form form-control" type="text"  style="max-width: 400px;">
     			</div>
     		</div> 
-    		<div class="row" align="center" style="padding:15px;">
-    			<div class="col-md-12 col-xs-12" > 
-    					<input class="form form-control" type="text"  style="max-width: 400px;">
-    			</div>
-    		</div> 
-    		<div class="row" align="center" style="padding:15px;">
-    			<div class="col-md-12 col-xs-12" > 
-    					<select class="form form-control" style="max-width: 400px;">
-    						<option>1</option>
-						    <option>2</option>
-						    <option>3</option>
-						    <option>4</option>
-    					</select>
-    			</div>
-    		</div>
-    		<div class="row" align="center" style="padding:15px;">
-    			<div class="col-md-12 col-xs-12" > 
-    					<select class="form form-control" style="max-width: 400px;">
-    						<option>0</option>
-						    <option>2</option>
-						    <option>3</option>
-						    <option>4</option>
-    					</select>
-    			</div>
-    		</div>
-    		<div class="row" align="center" style="padding:15px;">
-    			<div class="col-md-12 col-xs-12" > 
-    					<select class="form form-control" style="max-width: 400px;">
-    						<option>Categoria</option>
-						    <option>2</option>
-						    <option>3</option>
-						    <option>4</option>
-    					</select>
-    			</div>
-    		</div> 
-    		<div class="row" align="center" style="padding:15px;">
-    			<div class="col-md-12 col-xs-12" > 
-    					<select class="form form-control" style="max-width: 400px;">
-    						<option>Tipo Fia</option>
-						    <option></option>
-						    <option>3</option>
-						    <option>4</option>
-    					</select>
-    			</div>
-    		</div>   
-    		<div class="row" align="center" style="padding:15px;">
-    			<div class="col-md-12 col-xs-12" > 
-    					<select class="form form-control" style="max-width: 400px;">
-    						<option>Tipo sunedu</option>
-						    <option>2</option>
-						    <option>3</option>
-						    <option>4</option>
-    					</select>
-    			</div>
-    		</div> 
-    		<div class="row" align="center" style="padding:15px;">
-    			<div class="col-md-12 col-xs-12" > 
-    					<select class="form form-control" style="max-width: 400px;">
-    						<option>activo</option>
-						    <option>2</option>
-						    <option>3</option>
-						    <option>4</option>
-    					</select>
-    			</div>
-    		</div> 
-    		<div class="row" align="center" style="padding:15px;">
-    			<div class="col-md-12 col-xs-12" > 
-    					<input class="form form-control" type="text"  style="max-width: 400px;">
-    			</div>
-    		</div> 
+    		
     		<div class="row" align="center" style="padding:15px;">
     			<div class="col-md-6 col-xs-12"  style="padding:15px;"> 
     					<input class="btn btn-warning" type="button" value="Cancelar" style="max-width: 200px;">
     			</div>
     			<div class="col-md-6 col-xs-12" style="padding:15px;"> 
-    					<input class="btn btn-succes" type="button"  value="Guardar" style="max-width: 200px;">
+    					<input class="btn btn-succes" onclick="return pregunta()" type="button"  value="Guardar" style="max-width: 200px;">
     			</div>
     		</div>
+    		
+    		</form>
         </div>
 
         <!-- Bootstrap core JavaScript
@@ -131,4 +79,58 @@
         <script src="<%=request.getContextPath()%>/js/ModalAdministradores.js"></script>
     </div>
 </body>
+<script type="text/javascript">
+$(document).ready(function(){
+	 var accion='ultimosemestre';
+	 
+	  $.get('../gestionarPlan', {
+		  
+				accion : accion
+			}, function(response) {	
+				
+				var idsemestre=response['object']['idSemestre'];
+				var ano=response['object']['ano'];
+				var periodo=response['object']['semestre'];
+				var qSemanas=16; //response['object']['cantidadSemanas'];
+				
+				if(periodo==2){
+					ano=ano+1;
+					qSemanas=4;
+					periodo=0;
+					alert("primer if");
+				}else if(periodo==0){
+					periodo=1;
+					alert("segundo if");
+				}else if(periodo==1){
+					periodo=2;
+					alert("tercer if");
+				}
+				idsemestre++;
+				
+				document.getElementById("codigosemestre").setAttribute('value',idsemestre);
+				document.getElementById("ano").setAttribute('value',ano);
+				document.getElementById("periodo").setAttribute('value',periodo);
+				document.getElementById("cantidadsemanas").setAttribute('value',qSemanas);
+				 
+	  });   
+	           
+}); 
+
+function pregunta(){ 
+
+if($("#codigosemestre").val()!=""){	
+		if (confirm('¿Estas seguro de crear el nuevo semestre ?')){ 
+	       document.crearsemestre.submit() ;
+	       return true;
+	    } else{
+	    	return false;
+	    }
+	}else{
+		alert("Usted ya creo un semestre. Intente luego.")
+		return false;
+	}
+} 
+
+
+</script>
 </html>
